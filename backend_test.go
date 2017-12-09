@@ -29,9 +29,9 @@ func TestBackend(t *testing.T) {
 
 	for i := 0; i < goroutineCount; i++ {
 		go func(index int) {
-			for i := 0; i < iterationCount; i++ {
+			for j := 0; j < iterationCount; j++ {
 				b.Log(suijin.Message{
-					Msg: fmt.Sprintf("%d %d", index, i),
+					Msg: fmt.Sprintf("%d %d", index, j),
 				})
 			}
 			wg.Done()
