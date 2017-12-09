@@ -42,6 +42,6 @@ func (w writerBackend) Log(m Message) {
 
 	w.lock.Lock()
 	defer w.lock.Unlock()
-	w.writer.Write(b)
-	w.writer.Write([]byte{'\n'})
+	w.writer.Write(b)            // nolint: errcheck
+	w.writer.Write([]byte{'\n'}) // nolint: errcheck
 }
