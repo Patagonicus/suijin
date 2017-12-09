@@ -45,35 +45,16 @@ func TestBackend(t *testing.T) {
 	}
 
 	buf.Truncate(buf.Len() - 1)
-
-	type line struct {
-		routine, index int
-	}
-	var lines []line
-	for _, l := range strings.Split(buf.String(), "\n") {
-		s := strings.Split(l, " ")
-		if len(s) != 2 {
-			t.Fatalf("invalid line: %s", l)
-		}
-
-		r, err := strconv.Atoi(s[0])
-		if err != nil {
-			t.Fatalf("invalid line: %s", l)
-		}
-
-		i, err := strconv.Atoi(s[1])
-		if err != nil {
-			t.Fatalf("invalid line: %s", l)
-		}
-
-		lines = append(lines, line{r, i})
+	lines, err := extractMessages(buf.String())
+	if err != nil {
+		t.Fatal(err)
 	}
 
 	legacy.Slice(lines, func(a, b int) bool {
-		if lines[a].routine == lines[b].routine {
+		if lines[a].goroutine == lines[b].goroutine {
 			return lines[a].index < lines[b].index
 		}
-		return lines[a].routine < lines[b].routine
+		return lines[a].goroutine < lines[b].goroutine
 	})
 
 	for i := 0; i < goroutineCount; i++ {
@@ -85,4 +66,32 @@ func TestBackend(t *testing.T) {
 			}
 		}
 	}
+}
+
+type line struct {
+	goroutine int
+	index     int
+}
+
+func extractMessages(log string) ([]line, error) {
+	var lines []line
+	for _, l := range strings.Split(log, "\n") {
+		s := strings.Split(l, " ")
+		if len(s) != 2 {
+			return nil, fmt.Errorf("invalid line: %s", l)
+		}
+
+		r, err := strconv.Atoi(s[0])
+		if err != nil {
+			return nil, fmt.Errorf("invalid line: %s", l)
+		}
+
+		i, err := strconv.Atoi(s[1])
+		if err != nil {
+			return nil, fmt.Errorf("invalid line: %s", l)
+		}
+
+		lines = append(lines, line{r, i})
+	}
+	return lines, nil
 }
