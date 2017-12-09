@@ -81,7 +81,7 @@ func TestBackend(t *testing.T) {
 			index := i*iterationCount + j
 			expected := line{i, j}
 			if lines[index] != expected {
-				t.Fatalf("line %d is wrong, expected '%s' but got '%s'", index, expected, lines[index])
+				t.Fatalf("line %d is wrong, expected '%v' but got '%v'", index, expected, lines[index])
 			}
 		}
 	}
