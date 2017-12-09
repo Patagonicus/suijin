@@ -16,7 +16,7 @@ func ExampleFormatter() {
 
 	b, err := formatter.Format(suijin.Message{
 		suijin.InfoLevel,
-		"application started succesfully",
+		"application started successfully",
 		nil,
 	})
 	if err != nil {
@@ -38,7 +38,7 @@ func ExampleFormatter() {
 	fmt.Println(string(b))
 
 	// Output:
-	// 2006-01-02T15:04:05Z info: application started succesfully
+	// 2006-01-02T15:04:05Z info: application started successfully
 	// 2006-01-02T15:04:06Z debug: client connected "ip"="127.0.0.1" "user"="foobar"
 }
 
