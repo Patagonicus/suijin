@@ -15,10 +15,16 @@ type Message struct {
 type Level int
 
 const (
+	// DebugLevel is used for messages that should not be shown during normal execution.
 	DebugLevel Level = iota
+	// InfoLevel should be used for messages that are purely informational, such as as successful startup.
 	InfoLevel
+	// WarningLevel should be used for messages that indicate abnormal events that the application can recover from.
 	WarningLevel
+	// ErrorLevel is for events that the application cannot recover from.
 	ErrorLevel
+	// DisableLogging is not a valid level for messages but can be used to disable logging as it is a higher level than
+	// even ErrorLevel.
 	DisableLogging
 )
 

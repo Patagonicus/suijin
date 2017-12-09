@@ -14,6 +14,7 @@ type Formatter interface {
 	Format(m Message) ([]byte, error)
 }
 
+// FormatterConfig describes how TextFormatter should format messages.
 type FormatterConfig struct {
 	// The clock to use. Defaults to SystemClock if nil. You should probably not change this.
 	Clock Clock
@@ -23,8 +24,10 @@ type textFormatter struct {
 	c Clock
 }
 
+// DefaultFormatter outputs the current time, level, message and fields in this order.
 var DefaultFormatter = NewTextFormatter(FormatterConfig{})
 
+// NewTextFormatter returns a Formatter that uses the given config.
 func NewTextFormatter(config FormatterConfig) Formatter {
 	f := textFormatter{}
 

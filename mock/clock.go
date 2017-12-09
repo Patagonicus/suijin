@@ -25,6 +25,7 @@ func NewClock(start time.Time, step time.Duration) *Clock {
 	return &Clock{start, step, new(sync.Mutex)}
 }
 
+// Now returns a time.Time. With each call to Now the time returned is increased by the step given to NewClock.
 func (c *Clock) Now() time.Time {
 	c.lock.Lock()
 	defer c.lock.Unlock()

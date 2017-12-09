@@ -28,6 +28,9 @@ func (s sliceInterface) Swap(i, j int) {
 	valJ.Set(reflect.ValueOf(dataI))
 }
 
+// Slice sorts the provided slice given the provided less function.
+//
+// This sort is not guaranteed to be stable.
 func Slice(slice interface{}, less func(i, j int) bool) {
 	value := reflect.ValueOf(slice)
 	len := value.Len()
