@@ -6,4 +6,12 @@ go:
   - 1.8
   - 1.7
 
-script: go test -v -race ./...
+install:
+  - wget 'https://github.com/alecthomas/gometalinter/releases/download/v2.0.2/gometalinter-v2.0.2-linux-amd64.tar.bz2'
+  - tar xf gometalinter-v2.0.2-linux-amd64.tar.bz2
+script:
+  - go test -v -race ./...
+  - |
+    if expr "$TRAVIS_GO_VERSION" : '1\.9\..*'; then
+      env PATH="./gometalinter-v2.0.2-linux-amd64/linters:$PATH" ./gometalinter-v2.0.2-linux-amd64/gometalinter --config=gometalinter.config ./...
+    fi
