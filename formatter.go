@@ -23,7 +23,7 @@ type textFormatter struct {
 	c Clock
 }
 
-var DefaultFormatter Formatter = NewTextFormatter(FormatterConfig{})
+var DefaultFormatter = NewTextFormatter(FormatterConfig{})
 
 func NewTextFormatter(config FormatterConfig) Formatter {
 	f := textFormatter{}

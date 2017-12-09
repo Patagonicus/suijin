@@ -15,7 +15,7 @@ type Backend interface {
 }
 
 // DefaultBackend writes messages to stderr.
-var DefaultBackend Backend = NewWriterBackend(os.Stderr, DefaultFormatter)
+var DefaultBackend = NewWriterBackend(os.Stderr, DefaultFormatter)
 
 type writerBackend struct {
 	formatter Formatter
