@@ -42,7 +42,7 @@ func ExampleFormatter() {
 	// 2006-01-02T15:04:06Z debug: client connected "ip"="127.0.0.1" "user"="foobar"
 }
 
-func mustParse(s string) time.Time {
+func mustParse(s string) time.Time { // nolint: unparam
 	t, err := time.Parse(time.RFC3339, s)
 	if err != nil {
 		panic(err)
