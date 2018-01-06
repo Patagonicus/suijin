@@ -1,0 +1,19 @@
+language: go
+
+go:
+  - 1.x
+  - 1.9
+  - 1.8
+  - 1.7
+
+install:
+  - sh .install_metalinter.sh
+  - go get -t ./...
+script:
+  - go test -v -race ./...
+  - env PATH="gometalinter/linters:$PATH" gometalinter/gometalinter ./...
+    fi
+
+cache:
+  directories:
+
