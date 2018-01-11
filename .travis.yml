@@ -16,4 +16,4 @@ script:
 
 cache:
   directories:
-
+    - gometalinter
