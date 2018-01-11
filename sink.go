@@ -65,3 +65,19 @@ func formatFields(buf *bytes.Buffer, fields Fields) string {
 
 	return buf.String()
 }
+
+// FieldSink is a sink that adds fields to a message before forwarding it to another sink.
+// Its elements may not be modified after Log has been called for the first time.
+type FieldSink struct {
+	Sink   Sink
+	Fields Fields
+}
+
+// Log adds fields to the given message before forwarding it.
+func (f FieldSink) Log(msg Message) {
+	if msg.Fields == nil && len(f.Fields) != 0 {
+		msg.Fields = make(Fields)
+	}
+	msg.Fields.AddAll(f.Fields)
+	f.Sink.Log(msg)
+}
