@@ -11,6 +11,8 @@ import (
 // Sink consumes log messages. If you are writing a library that does logging you should accept a Sink
 // and then wrap it in a Logger yourself.
 type Sink interface {
+	// Log logs a message. The message's level must be a valid, non-special log level and it's Fields attribute must not
+	// be null. If either or both of these conditions is not met this method may drop the message silently.
 	Log(msg Message)
 }
 
